@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Results Dashboard</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f4f5fa;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #333;
+      text-align: center;
+    }
+    select, button {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+    }
+    button {
+      background-color: #4f46e5;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #4338ca;
+    }
+    img {
+      display: block;
+      margin: 20px auto;
+      border-radius: 8px;
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📊 Advanced Matplotlib Graphs</h2>
+
+    {% if predicted_value %}
+      <p><b>Predicted Value:</b> {{ predicted_value }}</p>
+    {% endif %}
+
+    <form method="get">
+      <input type="hidden" name="pred" value="{{ predicted_value }}">
+      <input type="hidden" name="inputs" value="{{ input_values|join:',' }}">
+      <label for="graph_type"><b>Select Graph Type:</b></label>
+      <select name="graph_type" id="graph_type">
+        <option value="heatmap">Correlation Heatmap</option>
+        <option value="scatter">Scatter Plot</option>
+        <option value="step">Step Plot</option>
+        <option value="stackplot">Stack Plot</option>
+        <option value="histogram">Histogram</option>
+        <option value="pie">Pie Chart</option>
+        <option value="3d_scatter">3D Scatter Plot</option>
+        <option value="3d_triangular">3D Triangular Surface</option>
+        <option value="prediction">Prediction Value</option>
+      </select>
+      <button type="submit">Show Graph</button>
+    </form>
+
+    {% if images %}
+      {% for img in images %}
+        {% if "Error" in img %}
+          <p style="color:red;">{{ img }}</p>
+        {% else %}
+          <img src="data:image/png;base64,{{ img }}" alt="Graph">
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
+</body>
+</html>

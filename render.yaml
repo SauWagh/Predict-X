@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: predictx-django-app
+    env: python
+    plan: free
+    rootDir: PredictX
+    buildCommand: pip install -r PredictX/requirements.txt
+    startCommand: gunicorn PredictX.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: PredictX.settings
+      - key: PYTHON_VERSION
+        value: 3.11

@@ -1,0 +1,9 @@
+Django>=4.2,<5.0
+gunicorn
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+pyautogui
+psycopg2-binary
